@@ -1,0 +1,166 @@
+Q1) What is an Exception?
+Ans) The exception is said to be thrown whenever an exceptional event occurs in java which signals that something is not correct with the code written and may give unexpected result. An exceptional event is a occurrence of condition which alters the normal program flow. Exceptional handler is the code that does something about the exception.
+
+Q2) Exceptions are defined in which java package?
+Ans) All the exceptions are subclasses of java.lang.Exception
+
+Q3) How are the exceptions handled in java?
+Ans) When an exception occurs the execution of the program is transferred to an appropriate exception handler. The try-catch-finally block is used to handle the exception.
+The code in which the exception may occur is enclosed in a try block, also called as a guarded region.
+The catch clause matches a specific exception to a block of code which handles that exception.
+And the clean up code which needs to be executed no matter the exception occurs or not is put inside the finally block
+
+Q4) Explain the exception hierarchy in java.
+Ans) The hierarchy is as follows:
+java exception hierarchy
+Throwable is a parent class of all Exception classes. There are two types of Exceptions: Checked exceptions and UncheckedExceptions or RunTimeExceptions. Both type of exceptions extends Exception class.
+
+Q5) What is Runtime Exception or unchecked exception?
+Ans) Runtime exceptions represent problems that are the result of a programming problem. Such problems include arithmetic exceptions, such as dividing by zero; pointer exceptions: such as trying to access an object through a null reference; and indexing exceptions: such as attempting to access an array element through an index that is too large or too small.
+Runtime exceptions need not be explicitly caught in try catch block as it can occur anywhere in a program, and in a typical one they can be very numerous. Having to add runtime exceptions in every method declaration would reduce a program's clarity. Thus, the compiler does not require that you catch or specify runtime exceptions (although you can). The solution to rectify is to correct the programming logic where the exception has occurred or provide a check.
+
+Q6) What is checked exception?
+Ans) Checked exception are the exceptions which forces the programmer to catch them explicitly in try-catch block. It is a subClass of Exception. Example: IOException.
+
+Q7) What is difference between Error and Exception?
+Ans) An error is an irrecoverable condition occurring at runtime. Such as OutOfMemory error. These JVM errors you can not repair them at runtime.Though error can be caught in catch block but the execution of application will come to a halt and is not recoverable.
+While exceptions are conditions that occur because of bad input or human error etc. e.g. FileNotFoundException will be thrown if the specified file does not exist. Or a NullPointerException will take place if you try using a null reference. In most of the cases it is possible to recover from an exception (probably by giving user a feedback for entering proper values etc.)
+
+Q8) What is difference between ClassNotFoundException and NoClassDefFoundError?
+Ans) A ClassNotFoundException is thrown when the reported class is not found by the ClassLoader in the CLASSPATH. It could also mean that the class in question is trying to be loaded from another class which was loaded in a parent classloader and hence the class from the child classloader is not visible.
+Consider if NoClassDefFoundError occurs which is something like
+java.lang.NoClassDefFoundError
+src/com/TestClass
+does not mean that the TestClass class is not in the CLASSPATH. It means that the class TestClass was found by the ClassLoader however when trying to load the class, it ran into an error reading the class definition. This typically happens when the class in question has static blocks or members which use a Class that's not found by the ClassLoader. So to find the culprit, view the source of the class in question (TestClass in this case) and look for code using static blocks or static members.
+
+Q9) What is throw keyword?
+Ans) Throw keyword is used to throw the exception manually. It is mainly used when the program fails to satisfy the given condition and it wants to warn the application.The exception thrown should be subclass of Throwable.
+public void parent(){
+    try{
+      child();
+    }catch(MyCustomException e){  }
+  }
+  public void child{
+    String iAmMandatory=null;
+    if(iAmMandatory == null){
+      throw (new MyCustomException("Throwing exception using throw keyword");
+    }
+  }
+
+Q10) What is use of throws keyword?
+Ans) If the function is not capable of handling the exception then it can ask the calling method to handle it by simply putting the throws clause at the function declaration.
+public void parent(){
+ try{
+    child();
+  }catch(MyCustomException e){  }
+ }
+ public void child throws MyCustomException{
+      //put some logic so that the exception occurs.
+  }
+
+Q11) What are the possible combination to write try, catch finally block?
+Ans)
+1 try{
+  //lines of code that may throw an exception
+}catch(Exception e){
+  //lines of code to handle the exception thrown in try block
+}finally{
+  //the clean code which is executed always no matter the exception occurs or not.
+}
+2 try{}finally{}
+3 try{
+  }catch(Exception e){
+    //lines of code to handle the exception thrown in try block
+  }
+The catch blocks must always follow the try block. If there are more than one catch blocks they all must follow each other without any block in between. The finally block must follow the catch block if one is present or if the catch block is absent the finally block must follow the try block.
+
+Q12) How to create custom Exception?
+Ans) To create you own exception extend the Exception class or any of its subclasses.
+class New1Exception extends Exception { } // this will create Checked Exception
+class NewException extends IOExcpetion { } // this will create Checked exception
+class NewException extends NullPonterExcpetion { } // this will create UnChecked exception
+
+Q13) When to make a custom checked Exception or custom unchecked Exception?
+Ans) If an application can reasonably be expected to recover from an exception, make it a checked exception. If an application do want to do anything to recover from the exception, make it an unchecked exception. For e.g in client server model, if server is not able to talk with DB or some IO operation went wrong, its ok to throw the unchecked exception so that conatiner can handle it and throw appropriate error response.
+
+Q14)What is StackOverflowError?
+Ans) The StackOverFlowError is an Error Object thorwn by the Runtime System when it Encounters that your application/code has ran out of the memory. It may occur in case of recursive methods or a large amount of data is fetched from the server and stored in some object. This error is generated by JVM.
+
+Q15) Why did the designers decide to force a method to specify all uncaught checked exceptions that can be thrown within its scope?
+Ans) Any Exception that can be thrown by a method is part of the method's public programming interface. Those who call a method must know about the exceptions that a method can throw so that they can decide what to do about them. These exceptions are as much a part of that method's programming interface as its parameters and return value.
+
+Q16) Once the control switches to the catch block does it return back to the try block to execute the balance code?
+Ans) No. Once the control jumps to the catch block it never returns to the try block but it goes to finally block(if present).
+
+Q17) Where is the clean up code like release of resources is put in try-catch-finally block and why?
+Ans) The code is put in a finally block because irrespective of try or catch block execution the control will flow to finally block. Typically finally block contains release of connections, closing of result set etc.
+
+Q18) Is it valid to have a try block without catch or finally?
+Ans) NO. This will result in a compilation error. The try block must be followed by a catch or a finally block. It is acceptable to omit the either catch or the finally block but not both.
+
+Q21) How do you get the descriptive information about the Exception occurred during the program execution?
+Ans) All the exceptions inherit a method printStackTrace() from the Throwable class. This method prints the stack trace from where the exception occurred. It prints the most recently entered method first and continues down, printing the name of each method as it works its way down the call stack from the top.
+
+Q23)Why is not considered as a good practice to write a single catch all handler to catch all the exceptions?
+Ans) You can write a single catch block to handle all the exceptions thrown during the program.
+If you use the Superclass Exception in the catch block then you will not get the valuable information about each of the exception thrown during the execution, though you can find out the class of the exception occurred. Also it will reduce the readability of the code as the programmer will not understand what is the exact reason for putting the try-catch block.
+
+Q24) What is exception matching?
+Ans) Exception matching is the process by which the the jvm finds out the matching catch block for the exception thrown from the list of catch blocks. When an exception is thrown, Java will try to find by looking at the available catch clauses in the top down manner. If it doesn't find one, it will search for a handler for a supertype of the exception. If it does not find a catch clause that matches a supertype for the exception, then the exception is propagated down the call stack. This process is called exception matching.
+
+Q25) What happens if the handlers for the most specific exceptions is placed above the more general exceptions handler?
+Ans) Compilation fails. The catch block for handling the most specific exceptions must always be placed above the catch block written to handle the more general exceptions.
+//The code below will not compile.
+try {            
+    // code that can throw IOException or its subtypes             
+} catch (IOException e) {
+// handles IOExceptions and its subtypes
+} catch (FileNotFoundException ex) { 
+    // handle FileNotFoundException only
+}
+
+// The code below will compile successfully
+try {
+  // code that can throw IOException or its subtypes 
+} catch (FileNotFoundException ex)  {
+// handles IOExceptions and its subtypes
+} catch (IOException e){
+// handle FileNotFoundException only
+}
+Q26) Does the order of the catch blocks matter if the Exceptions caught by them are not subtype or supertype of each other?
+Ans) No. If the exceptions are siblings in the Exception class’s hierarchy i.e. If one Exception class is not a subtype or supertype of the other, then the order in which their handlers(catch clauses) are placed does not matter.
+
+Q27) What happens if a method does not throw an checked Exception directly but calls a method that does? What does 'Ducking' the exception mean?
+Ans) If a method does not throw an checked Exception directly but calls a method that throws an exception then the calling method must handle the throw exception or declare the exception in its throws clause. If the calling method does not handle and declares the exception, the exceptions is passed to the next method in the method stack. This is called as ducking the exception down the method stack.
+e.g. The code below will not compile as the getCar() method has not declared the CarNotFoundException which is thrown by the getColor () method.
+void getCar() {
+ getColor();
+}
+void getColor() {
+ throw new CarNotFoundException();
+}
+//Fix for the above code is
+void getCar() throws CarNotFoundException {
+   getColor();
+}
+void getColor() {
+  throw new CarNotFoundException();
+}
+
+Q28) Is an empty catch block legal?
+Ans) Yes you can leave the catch block without writing any actual code to handle the exception caught
+e.g. The code below is legal but not appropriate, as in this case you will nt get any information about the exception thrown.
+
+Q29)Can a catch block throw the exception caught by itself?
+Ans) Yes. This is called rethrowing of the exception by catch block.
+e.g. the catch block below catches the FileNotFound exception and rethrows it again.
+void checkEx() throws FileNotFoundException {
+  try{
+    //code that may throw the FileNotFoundException
+
+  }catch(FileNotFound eFnf){
+    throw FileNotFound();
+  }
+}
+-----------------------------
+

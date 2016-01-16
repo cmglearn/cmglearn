@@ -1,0 +1,63 @@
+Q1) What is polymorphism?
+Ans) The ability to define a function in multiple forms is called Polymorphism. In java, c++ there are two types of polymorphism: compile time polymorphism (overloading) and runtime polymorphism (overriding).
+Mehtod overriding: Overriding occurs when a class method has the same name and signature as a method in parent class. When you override methods, JVM determines the proper methods to call at the program’s run time, not at the compile time.
+Overloading: Overloading is determined at the compile time. It occurs when several methods have same names with:
+Different method signature and different number or type of parameters.
+Same method signature but different number of parameters.
+Same method signature and same number of parameters but of different type
+Example of Overloading
+int add(int a,int b)
+ float add(float a,int b)
+ float add(int a ,float b)
+ void add(float a)
+ int add(int a)
+ void add(int a) //error conflict with the  method int add(int a)
+class BookDetails {
+String title;
+setBook(String title){}
+}
+class ScienceBook extends BookDetails{
+setBook(String title){} //overriding
+setBook(String title, String publisher,float price){} //overloading
+}
+
+Q2) What is inheritance?
+Ans) Inheritance allows a Child class to inherit properties from its parent class. In Java this is achieved by using extends keyword. Only properties with access modifier public and protected can be accessed in child class.
+public class Parent {
+  public String parentName;  
+  public String familyName;
+  protected void printMyName() {
+    System.out.println(“ My name is “+ chidName+” “ +familyName);
+  }
+}
+public class Child extends Parent {
+  public String childName;
+  public int childAge;
+  //inheritance
+  protected void printMyName() {
+    System.out.println(“ My child name is “+ chidName+” “ +familyName);
+  }
+}
+In above example the child has inherit its family name from the parent class just by inheriting the class. When child object is created printMyName() present in child class is called.
+ 
+Q3) What is multiple inheritance and does java support?
+Ans) If a child class inherits the property from multiple classes is known as multiple inheritance. Java does not allow to extend multiple classes, to overcome this problem it allows to implement multiple Interfaces.
+
+Q4) What is an abstraction ?
+Ans) Abstraction is a way of converting real world objects in terms of class. Its a concept of defining an idea in terms of classes or interface. For example creating a class Vehicle and injecting properties into it. E.g
+public class Vehicle {
+  public String colour;
+  public String model;
+}
+
+Q5) What is Encapsulation?
+Ans) The encapsulation is achieved by combining the methods and attribute into a class. The class acts like a container encapsulating the properties. The users are exposed mainly public methods.The idea behind is to hide how thinigs work and just exposing the requests a user can do.
+
+Q6) What is Association?
+Ans) Association is a relationship where all object have their own lifecycle and there is no owner. Let's take an example of Teacher and Student. Multiple students can associate with single teacher and single student can associate with multiple teachers but there is no ownership between the objects and both have their own lifecycle. Both can create and delete independently.
+
+Q7) What is Aggregation?
+Ans) Aggregation is a specialize form of Association where all object have their own lifecycle but there is ownership and child object can not belongs to another parent object. Let's take an example of Department and teacher. A single teacher can not belongs to multiple departments, but if we delete the department teacher object will not destroy. We can think about "has-a" relationship.
+
+Q8) What is Composition ?
+Ans) Composition is again specialize form of Aggregation and we can call this as a "death" relationship. It is a strong type of Aggregation. Child object dose not have their lifecycle and if parent object deletes all child object will also be deleted. Let's take again an example of relationship between House and rooms. House can contain multiple rooms there is no independent life of room and any room can not belongs to two different house if we delete the house room will automatically delete.
